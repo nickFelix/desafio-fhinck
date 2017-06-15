@@ -15,7 +15,7 @@ html, body{
 
 /* label color */
 .input-field label {
-  color: #9e9e9e;
+  color: #555;
 }
 /* label focus color */
 .input-field input[type=text]:focus + label {

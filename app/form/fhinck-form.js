@@ -32,7 +32,7 @@ $(document).ready(function() {
     weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
     min: new Date(),
     onClose: function() {
-      this.$holder.blur();
+      $(document.activeElement).blur()
     }
   });
 
