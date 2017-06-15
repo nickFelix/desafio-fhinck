@@ -18,17 +18,22 @@
               <h2 class="header">Formulário de reconhecimento</h2>
 
               <div class="input-field">
-                <input type="text" id="tolkien" class="validate" ng-model="fhinck.form.tolken" required>
+                <input type="text" id="tolkien"
+                class="validate"
+                ng-class="{invalid : fhinck.invalidToken}"
+                ng-model="fhinck.form.tolken" 
+                ng-blur="fhinck.checkTolken()" required>
                 <label class="active" 
                   for="tolkien" 
-                  data-error="Chave inválida" >
+                  data-error="Tolken inválido">
                   Chave_FHK_J_R_R_Tolken
                 </label>
               </div>
 
-              <h2 class="rebel-form-divider">Dados do piloto</h2>
               
               <div class="inner-form-wrapper">
+
+                <h2 class="rebel-form-divider">Dados do piloto</h2>
 
                 <div class="input-field">
                   <input id="email" type="email" class="validate" ng-model="fhinck.form.email" required>
@@ -36,12 +41,17 @@
                 </div>
 
                 <div class="input-field">
-                  <input id="name" type="text" class="validate" ng-model="fhinck.form.name" required>
+                  <input id="name" 
+                  type="text" 
+                  class="validate" 
+                  ng-model="fhinck.form.name"
+                  ng-blur="fhinck.checkName()"
+                  required>
                   <label for="name" class="active">Nome</label>
                 </div>
 
                 <div class="input-field">
-                  <select>
+                  <select ng-disabled="!fhinck.planets">
                     <option value="{{planet.id}}" 
                       ng-repeat="planet in fhinck.planets track by $index">
                       {{planet.name}}
