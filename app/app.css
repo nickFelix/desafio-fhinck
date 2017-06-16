@@ -36,6 +36,10 @@ html, body{
   box-shadow: 0 1px 0 0 #F79633;
 }
 
+.input-field label{
+  font-size: .9rem !important;
+}
+
 input[type="checkbox"].filled-in:checked+label:after{
   border-color: #F79633;
   background-color: #F79633;

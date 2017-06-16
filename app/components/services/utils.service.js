@@ -19,6 +19,9 @@ angular.module('myApp').service('utilsService', [function(){
 
     hasNumber: function(val){
 
+      if(!val){
+        return
+      }
       var contains = false;
 
       for(var i = 0; i < val.length; i++){

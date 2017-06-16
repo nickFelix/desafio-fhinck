@@ -8,9 +8,9 @@
 <div class="container">
   <section class="rebel-form-wrapper">
     <div class="row">
-      <div class="col s10 l8 offset-s1 offset-l2">
+      <div class="col s12 m10 offset-m1 l8 offset-l2">
 
-        <form class="rebel-form js--rebel-form">
+        <form name="rebel-form" class="rebel-form js--rebel-form">
           <div class="card">
             <div class="top-card"></div>
             <div class="card-content">
@@ -22,7 +22,9 @@
                 class="validate"
                 ng-class="{invalid : fhinck.invalidToken}"
                 ng-model="fhinck.form.tolken" 
-                ng-blur="fhinck.checkTolken()" required>
+                ng-change="fhinck.checkTolken()" 
+                ng-model-options="{debounce: 1500}"
+                required>
                 <label class="active" 
                   for="tolkien" 
                   data-error="Tolken inválido">
@@ -80,37 +82,37 @@
                 <div class="checkbox-wrapper">
                   <label class="check-label">Do que você necessita?</label>
                   <p class="form-checkbox">
-                    <input type="checkbox" class="filled-in" id="fuel">
+                    <input type="checkbox" ng-model="fhinck.form.tasks.fuel" class="filled-in" id="fuel">
                     <label for="fuel">Abastecimento/Combustível</label>
                   </p>
 
                   <p class="form-checkbox">
-                    <input type="checkbox" class="filled-in" id="unship">
+                    <input type="checkbox"ng-model="fhinck.form.tasks.unship" class="filled-in" id="unship">
                     <label for="unship">Descarregar carga</label>
                   </p>
 
                   <p class="form-checkbox">
-                    <input type="checkbox" class="filled-in" id="eletric-maintenance">
+                    <input type="checkbox"ng-model="fhinck.form.tasks.eletricMaintenance" class="filled-in" id="eletric-maintenance">
                     <label for="eletric-maintenance">Manutenção elétrica/eletrônica</label>
                   </p>
 
                   <p class="form-checkbox">
-                    <input type="checkbox" class="filled-in" id="machanic-maintenance">
+                    <input type="checkbox"ng-model="fhinck.form.tasks.mechanicMaintenance" class="filled-in" id="machanic-maintenance">
                     <label for="machanic-maintenance">Manutenção mecânica</label>
                   </p>
 
                   <p class="form-checkbox">
-                    <input type="checkbox" class="filled-in" id="thrusters-maintenance">
+                    <input type="checkbox"ng-model="fhinck.form.tasks.thrustersMaintenance" class="filled-in" id="thrusters-maintenance">
                     <label for="thrusters-maintenance">Manutenção de propulsores</label>
                   </p>
 
                   <p class="form-checkbox">
-                    <input type="checkbox" class="filled-in" id="system-validation">
+                    <input type="checkbox"ng-model="fhinck.form.systemValidation" class="filled-in" id="system-validation">
                     <label for="system-validation">Verificação de sistemas</label>
                   </p>
 
                   <p class="form-checkbox">
-                    <input type="checkbox" class="filled-in" id="ship cleaning">
+                    <input type="checkbox"ng-model="fhinck.form.tasks.cleaning" class="filled-in" id="ship cleaning">
                     <label for="ship cleaning">Limpeza da aeronave</label>
                   </p>
                 </div>
@@ -121,15 +123,18 @@
                       <input id="arrival-date" 
                         type="text" 
                         class="datepicker" 
-                        ng-model="fhinck.arrivalDate" ng-change="fhinck.dataMudou()" required>
-                      <label for="arrival-date">Data chegada</label>
+                        ng-model="fhinck.arrivalDate" required="" aria-required="true">
+                      <label for="arrival-date" data-error="Data Inválida">Data chegada</label>
                     </div>
                   </div>
                   <div class="col s6">
 
                     <div class="input-field">
-                      <input id="departure-date" type="text" class="datepicker validate" required>
-                      <label for="departure-date">Data saída</label>
+                      <input id="departure-date" 
+                        type="text" 
+                        class="datepicker" 
+                        ng-model="fhinck.departureDate" required="" aria-required="true">
+                      <label for="departure-date" data-error="Data Inválida">Data saída</label>
                     </div>
 
                   </div>
@@ -140,15 +145,20 @@
                     <div class="input-field">
                       <input id="arrival-time" 
                         type="text" 
-                        class="timepicker validate" 
-                        ng-model="fhinck.arrivalTime" oninput="fhinck.dataMudou()" required>
-                      <label for="arrival-time">Hora chegada</label>
+                        class="timepicker" 
+                        ng-model="fhinck.arrivalTime" required="" aria-required="true">
+                      <label for="arrival-time"
+                        data-error="Não pode ser menor do que hora atual">Hora chegada</label>
                     </div>
                   </div>
                   <div class="col s6">
                     <div class="input-field">
-                      <input id="departure-time" type="text" class="timepicker validate" required>
-                      <label for="departure-time">Hora saída</label>
+                      <input id="departure-time" 
+                        type="text" 
+                        class="timepicker"
+                        ng-model="fhinck.departureTime" required="" aria-required="true">
+                      <label for="departure-time"
+                        data-error="Não pode ser menor do que horario de chegada">Hora saída</label>
                     </div>
 
                   </div>
@@ -158,10 +168,14 @@
 
                 <div class="row">
                   <div class="col s6 m6 left-align">
-                    <button type="button" class="btn fhinck-btn">Selfie</button>
+                    <iput type="file" 
+                      ngf-select ng-model="fhinck.form.selfie" name="selfie"
+                      ngf-model-invalid="errorFile" 
+                      accept="image/*" 
+                      class="btn fhinck-btn">Selfie</button>
                   </div>
                   <div class="col s12 m6 right-align">
-                    <button class="btn fhinck-btn">Solicitar Autorização</button>
+                    <button class="btn fhinck-btn" ng-click="fhinck.checkDates()">Solicitar Autorização</button>
                   </div>
                 </div>
               </div>
