@@ -1,7 +1,7 @@
 <header>
   <div class="rebel-box">
     <h1>Atenção! Você está no território da aliança rebelde!</h1>
-    <p class="form-checkbox">Identifique-se!</p>
+    <a class="form-checkbox" ng-click="fhinck.scrollToForm()">Identifique-se!</a>
   </div>
 </header>
 
@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col s10 l8 offset-s1 offset-l2">
 
-        <form class="rebel-form">
+        <form class="rebel-form js--rebel-form">
           <div class="card">
             <div class="top-card"></div>
             <div class="card-content">
@@ -51,9 +51,12 @@
                 </div>
 
                 <div class="input-field">
-                  <select ng-disabled="!fhinck.planets">
-                    <option value="{{planet.id}}" 
-                      ng-repeat="planet in fhinck.planets track by $index">
+                  <select id="pilot-planet" 
+                    ng-model="fhinck.form.pilotPlanet" 
+                    ng-options="planet.name for planet in fhinck.planets"
+                    my-material-select>
+                    <option value="{{planet.name}}" 
+                      ng-repeat="planet in fhinck.planets">
                       {{planet.name}}
                     </option>
                   </select>
@@ -63,15 +66,14 @@
                 <h2 class="rebel-form-divider">Dados da aterrissagem</h2>
 
                 <div class="input-field">
-                  <select>
-                    <option value="ship.id" 
-                      ng-repeat="ship in fhinck.ships track by $index">
-                      {{ship.name}}
-                    </option>
+                  <select ng-model="fhinck.form.pilotShip"
+                    ng-options="ship.name for ship in fhinck.ships" 
+                    my-material-select>
+                    <option value="" selected disabled></option>
                   </select>
                   <label>Qual nave você está pilotando?</label>
                   <div class="nave-img">
-                    <img class="responsive-img" src="../resources/img/Starbasecarida.jpg" alt="">
+                    <img id="ship-img" class="responsive-img" ng-src="{{fhinck.form.pilotShip.img}}" alt="">
                   </div>
                 </div>
 
@@ -155,10 +157,10 @@
                 <h2 class="rebel-form-divider">Identificação</h2>
 
                 <div class="row">
-                  <div class="col s6 left-align">
+                  <div class="col s6 m6 left-align">
                     <button type="button" class="btn fhinck-btn">Selfie</button>
                   </div>
-                  <div class="col s6 right-align">
+                  <div class="col s12 m6 right-align">
                     <button class="btn fhinck-btn">Solicitar Autorização</button>
                   </div>
                 </div>

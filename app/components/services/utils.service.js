@@ -18,13 +18,17 @@ angular.module('myApp').service('utilsService', [function(){
     },
 
     hasNumber: function(val){
+
+      var contains = false;
+
       for(var i = 0; i < val.length; i++){
         if(val.charCodeAt(i) >= 48 
         && val.charCodeAt(i) <= 57){
-          return true;
+          contains = true;
         }
       }
-      return false
+
+      return contains;
     },
 
     toDate: function(dateStr) {
