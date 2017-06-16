@@ -59,14 +59,14 @@ angular.module('myApp').controller('FhinckFormCtrl', ['$scope', 'utilsService', 
 
 
       if(!vm.arrivalDate){
-        $('#arrival-date').addClass('validate invalid');
+        $('#arrival-date').addClass('invalid');
       }else{
         $('#arrival-date').removeClass('invalid');
         $('#arrival-date').addClass('valid');
       }
 
       if(!vm.departureDate){
-        $('#departure-date').addClass('validate invalid');
+        $('#departure-date').addClass('invalid');
         return;
       }else{
         $('#departure-date').removeClass('invalid');
@@ -86,14 +86,14 @@ angular.module('myApp').controller('FhinckFormCtrl', ['$scope', 'utilsService', 
       depDate.setMinutes(depTime[1]);
 
       if(arrDate < Date.now()){
-        $('#arrival-time').addClass('validate invalid');
+        $('#arrival-time').addClass('invalid');
       }else{
         $('#arrival-time').removeClass('invalid');
         $('#arrival-time').addClass('valid');
       }
 
       if(depDate < arrDate){
-        $('#departure-time').addClass('validate invalid');
+        $('#departure-time').addClass('invalid');
         return;
       }else{
         $('#departure-time').removeClass('invalid');

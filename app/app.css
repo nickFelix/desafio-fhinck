@@ -56,6 +56,11 @@ input[type="checkbox"].filled-in:checked+label:after{
 
 .fhinck-btn{
   background-color: #F79633;
+  margin: 5px 0px;
+}
+
+.file-field{
+  margin-top: 0px;
 }
 
 .fhinck-btn:hover, .fhinck-btn:focus{
