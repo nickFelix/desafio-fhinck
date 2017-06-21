@@ -127,6 +127,7 @@ angular.module('myApp').controller('FhinckFormCtrl', ['$scope', 'utilsService', 
     }
 
     vm.submitForm = function(){
+      vm.checkDates();
       //send to back end to send email
     }
 
