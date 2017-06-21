@@ -169,17 +169,17 @@
                 <div class="row">
                   <div class="col s6 m6 left-align">
                     <div class="file-field input-field">
+
                       <div class="btn fhinck-btn">
                         <span>selfie</span>
-                        <input type="file" 
-                          ngf-select ng-model="fhinck.form.selfie" name="selfie"
-                          ngf-model-invalid="errorFile" 
-                          accept="image/*" 
-                          class="file-path validate"/>
+                        <input type="file" ng-model="fhinck.form.selfie" name="selfie"
+                          ngf-select ngf-model-invalid="errorFile"
+                          accept="image/*"/>
                       </div>
                       <div class="file-path-wrapper">
-                        <input class="file-path validate"/>
+                          <input class="file-path" ng-bind="fhinck.form.selfie.name" type="text"/>
                       </div>
+
                     </div>
                   </div>
                   <div class="col s12 m6 right-align">

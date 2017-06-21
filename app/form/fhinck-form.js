@@ -126,6 +126,10 @@ angular.module('myApp').controller('FhinckFormCtrl', ['$scope', 'utilsService', 
       }
     }
 
+    vm.submitForm = function(){
+      //send to back end to send email
+    }
+
     $(document).ready(function () {
 
       $('select').not().material_select();
