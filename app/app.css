@@ -13,6 +13,10 @@ html, body{
   overflow-x: hidden;
 }
 
+strong{
+  font-weight: bold;
+}
+
 /* label color */
 .input-field label {
   color: #555;
@@ -57,6 +61,7 @@ input[type="checkbox"].filled-in:checked+label:after{
 .fhinck-btn{
   background-color: #F79633;
   margin: 5px 0px;
+  text-transform: capitalize;
 }
 
 .file-field{
@@ -117,6 +122,7 @@ header{
   font-size: 240%;
   padding: 0px 15px;
   transition: .5s;
+  border-bottom: 1px solid transparent;
 }
 
 .rebel-box a:hover {
@@ -141,4 +147,13 @@ header{
 
 .checkbox-wrapper p.form-checkbox{
   margin: 15px 0px 10px;
+}
+
+.form-success{
+  font-weight: 400;
+  margin: 10px 0px !important;
+}
+
+.new-request{
+  margin-top: 40px;
 }

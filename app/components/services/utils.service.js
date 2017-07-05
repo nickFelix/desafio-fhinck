@@ -37,6 +37,22 @@ angular.module('myApp').service('utilsService', [function(){
     toDate: function(dateStr) {
       var parts = dateStr.split("-");
       return new Date(parts[2], parts[1] - 1, parts[0]);
+    },
+
+    getCurrentShipImg: function(callback){
+
+      var src = $('#ship-img')[0].src
+      
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', src, true);
+      xhr.responseType = 'blob';
+      xhr.onload = function(e) {
+        if (this.status == 200) {
+          callback(this)
+        }
+      };
+      xhr.send();
+
     }
 
   }

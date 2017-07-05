@@ -1,5 +1,5 @@
-angular.module('myApp').controller('FhinckFormCtrl', ['$scope', 'utilsService', '$timeout', 'Upload',
-  function ($scope, utilsService, $timeout, Upload) {
+angular.module('myApp').controller('FhinckFormCtrl', ['$scope', 'utilsService', '$timeout', 'Upload', '$route',
+  function ($scope, utilsService, $timeout, Upload, $route) {
 
     var vm = this;
 
@@ -18,6 +18,10 @@ angular.module('myApp').controller('FhinckFormCtrl', ['$scope', 'utilsService', 
       { name: 'GR-75 MEDIUM TRANSPORT', img: '../resources/img/GR-75_Medium_Transport.jpg' },
       { name: 'GX1 SHORT HAULE', img: '../resources/img/GX1_Ventral.jpg' },
     ];
+
+    vm.newRequest= function(){
+      $route.reload();
+    }
 
     vm.scrollToForm = function () {
       $('html, body').animate({ scrollTop: $('.js--rebel-form').offset().top }, 1000);
@@ -55,20 +59,20 @@ angular.module('myApp').controller('FhinckFormCtrl', ['$scope', 'utilsService', 
       }, 0);
     }
 
-    vm.checkDates = function(){
+    vm.checkDates = function () {
 
 
-      if(!vm.arrivalDate){
+      if (!vm.arrivalDate) {
         $('#arrival-date').addClass('invalid');
-      }else{
+      } else {
         $('#arrival-date').removeClass('invalid');
         $('#arrival-date').addClass('valid');
       }
 
-      if(!vm.departureDate){
+      if (!vm.departureDate) {
         $('#departure-date').addClass('invalid');
         return;
-      }else{
+      } else {
         $('#departure-date').removeClass('invalid');
         $('#departure-date').addClass('valid');
       }
@@ -85,50 +89,86 @@ angular.module('myApp').controller('FhinckFormCtrl', ['$scope', 'utilsService', 
       depDate.setHours(depTime[0]);
       depDate.setMinutes(depTime[1]);
 
-      if(arrDate < Date.now()){
+      if (arrDate < Date.now()) {
         $('#arrival-time').addClass('invalid');
-      }else{
+      } else {
         $('#arrival-time').removeClass('invalid');
         $('#arrival-time').addClass('valid');
+        vm.form.arrivalDate = arrDate
       }
 
-      if(depDate < arrDate){
+      if (depDate < arrDate) {
         $('#departure-time').addClass('invalid');
         return;
-      }else{
+      } else {
         $('#departure-time').removeClass('invalid');
         $('#departure-time').addClass('valid');
+        vm.form.departureDate = depDate
       }
 
 
     }
 
-    vm.uploadFiles = function (file, errFiles) {
-      vm.f = file;
-      vm.errFile = errFiles && errFiles[0];
+    vm.uploadFiles = function (file, params) {
+
       if (file) {
+
+        vm.loading = true
+
         file.upload = Upload.upload({
-          url: 'to be defined',
-          data: { file: file }
+          url: 'http://localhost:3003/api/mailer',
+          data: params,
+          file: { files: file }
         });
 
         file.upload.then(function (response) {
           $timeout(function () {
-            file.result = response.data;
+            vm.formSuccess = true;
+            vm.form.successID = response.data.requestID
+            vm.loading = false;
           });
-        }, function (response) {
-          if (response.status > 0)
-            $scope.errorMsg = response.status + ': ' + response.data;
-        }, function (evt) {
-          file.progress = Math.min(100, parseInt(100.0 *
-            evt.loaded / evt.total));
         });
       }
     }
 
-    vm.submitForm = function(){
+    vm.validateForm = function () {
+      var valid = false;
+
+      if (vm.form.pilotPlanet
+        && vm.form.pilotShip
+        && vm.form.tasks
+        && vm.form.arrivalDate < vm.form.departureDate
+        && vm.form.selfie) {
+        valid = true;
+      }
+
+      return valid;
+
+    }
+
+    vm.submitForm = function () {
       vm.checkDates();
-      //send to back end to send email
+
+      if (vm.validateForm()) {
+        utilsService.getCurrentShipImg(function (res) {
+          var shipImg = res.response;
+
+          var params = {
+            name: vm.form.name,
+            email: vm.form.email,
+            planet: vm.form.pilotPlanet.name,
+            ship: vm.form.pilotShip.name,
+            tasks: vm.form.tasks,
+            arrivalDate: vm.form.arrivalDate,
+            departureDate: vm.form.arrivalDate
+          }
+
+          vm.uploadFiles([vm.form.selfie, shipImg], params);
+        })
+      } else {
+        alert('Seu formulário está incompleto!')
+      }
+
     }
 
     $(document).ready(function () {
